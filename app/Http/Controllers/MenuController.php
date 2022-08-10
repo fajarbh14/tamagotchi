@@ -4,37 +4,37 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\Models\User as Model;
+use App\Models\Menu as Model;
 
 use Auth;
 use DB;
 use DataTables;
 use Helper;
 
-class UserController extends Controller
+class MenuController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('role:Admin');
+        $this->middleware('role:Admin,Koki');
     }
 
     public function index()
     {
-        return view("admin.users.index");
+        return view("admin.menu.index");
     }
 
     public function api(Request $request)
     {
-        return DataTables::of(Model::where('role','!=',5)->orderBy("role", "DESC"))
+        return DataTables::of(Model::orderBy("nama", "DESC"))
                 ->addIndexColumn()
-                ->addColumn('role', function($data) {
-                    return Helper::roleName($data->role);
+                ->addColumn('harga',function($data){
+                    return "Rp. ".number_format($data->harga,0,',','.');
                 })
                 ->addColumn('action', function($data) {
                     return view("components.action", [
-                        "edit"      => url("/user/edit/".$data->id),
-                        "delete"    => url("/user/delete/".$data->id),
+                        "edit"      => url("/menu-makanan/edit/".$data->id),
+                        "delete"    => url("/menu-makanan/delete/".$data->id),
                     ]);
                 })
                 ->rawColumns(['action'])
@@ -44,17 +44,16 @@ class UserController extends Controller
     public function create()
     {
         $data = null;
-        return view("admin.users.form",compact('data'));
+        return view("admin.menu.form",compact('data'));
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'nama'   => "required", 
-            'username'  => "required|unique:users",
-            'password'   => "required", 
-            'role'   => "required", 
-            // 'jenis'   => "required", 
+            'jenis_menu'   => "required", 
+            'harga'   => "required",
+            'stok'   => "required", 
         ]);
 
         if ($validator->fails()) {
@@ -63,15 +62,21 @@ class UserController extends Controller
 
         DB::beginTransaction();
         try {
+
+            if ($request->file('image') != null) {
+                $image  = $request->file('image')->store("foto_menu");
+            }
+
             $data = Model::create([
     			'nama'  => $request['nama'], 
-    			'username' => $request['username'],
-                'password' => bcrypt($request['password']),
-                'role' => $request['role'],
+    			'jenis_menu' => $request['jenis_menu'],
+                'harga' => str_replace('.','',$request['harga']),
+                'stok' => $request['stok'],
+                'image' => $image
     		]);
 
     		DB::commit();
-            return response()->json(["status_code" => 200, "message" => "Successfully Created Data", "data" => $data]);
+            return response()->json(["status_code" => 200, "message" => "Berhasil Menambahkan Data", "data" => $data]);
         } catch (Exception $e) {
             DB::rollback();
             return response()->json(["status_code" => 500, "message" => $e->getMessage(), "data" => null]);
@@ -81,14 +86,16 @@ class UserController extends Controller
     public function edit($id)
     {
         $data   = Model::findOrFail($id);
-        return view("admin.users.form", compact("data"));
+        return view("admin.menu.form", compact("data"));
     }
 
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
             'nama'   => "required", 
-            'role'   => "required", 
+            'jenis_menu'   => "required", 
+            'harga'   => "required",
+            'stok'   => "required",
         ]);
 
         if ($validator->fails()) {
@@ -97,16 +104,26 @@ class UserController extends Controller
 
         DB::beginTransaction();
         try {
+            $data = Model::findOrFail($id);
+            
+            if ($request->file('image') != null) {
+                $image  = $request->file('image')->store("foto_menu");
+            }else{
+                $image  = $data->image;
+            }
 
-            $data       = Model::findOrFail($id);
             $data ->update([
     			'nama'  => $request['nama'], 
-    			'username' => $request['username'],
-                'password' => $request['password'] == null ? $data->password : bcrypt($request['password']),
-                'role' => $request['role'],
+    			'jenis_menu' => $request['jenis_menu'],
+                'harga' => str_replace(".", "", $request['harga']),
+                'stok' => $request['stok'],
+                'image' => $image
+
     		]);
+
     		DB::commit();
-            return response()->json(["status_code" => 200, "message" => "Successfully Updated Data", "data" => $data]);
+    
+            return response()->json(["status_code" => 200, "message" => "Berhasil Merubah Data", "data" => $data]);
         } catch (Exception $e) {
             DB::rollback();
             return response()->json(["status_code" => 500, "message" => $e->getMessage(), "data" => null]);
@@ -120,12 +137,12 @@ class UserController extends Controller
         {
             $data = Model::findOrFail($id);
             if(Auth::user()->id == $data->id) {
-                return response()->json(["status_code" => 500, "message" => "Tidak Bisa Menghapus Data Diri !", "data" => null]);
+                return response()->json(["status_code" => 500, "message" => "Tidak Bisa Menghapus Data !", "data" => null]);
             }
             $data->delete();
 
             DB::commit();
-            return response()->json(["status_code" => 200, "message" => "Successfully Deleted Data", "data" => $data]);
+            return response()->json(["status_code" => 200, "message" => "Berhasil Menghapus Data", "data" => $data]);
         }
         catch (Exception $e) 
         {

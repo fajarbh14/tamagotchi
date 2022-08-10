@@ -45,30 +45,31 @@
             $(".form-control").removeClass("is-invalid");
             $(".invalid-feedback").remove();
         });
-
-        function populateErrorMessage(errors) {
-            var ObjToArray = Object.entries(errors);
-            ObjToArray.forEach((value) => {
-                var input = $(`[name='${value[0]}']`);
-                var feedback = `<div class='invalid-feedback'>${value[1][0]}</div>`;
-
-
-                if (input.length > 1) {
-                    $(`[data-input='${value[0]}']`).append(
-                        `<p class='d-block invalid-feedback text-danger' style='margin-top: 0.25rem; font-size: 0.875em'>${value[1][0]}</p>`
-                        );
-                } else {
-                    input.addClass("is-invalid");
-                    input.after(feedback);
-                }
-            });
-        }
-
+        
+        
         $(document).on("input", ".numeric", function () {
             this.value = this.value.replace(/\D/g, '');
         });
 
+        $(document).on("input", ".comma", function() {
+            this.value = addCommas(this.value)
+        });
+
+        document.querySelectorAll("[type='file']").forEach(function(input) {
+            input.addEventListener("change", function(e) {
+                var file    = e.target.files[0];
+                var img     = e.target.previousElementSibling;
+
+                if (file) {
+                    img.src = URL.createObjectURL(file);
+                } else {
+                    img.src = "";
+                }
+            })
+        })
+
         function openForm(url, type = "create") {
+            
             var title = {
                 create: "Tambah Data",
                 edit: "Edit Data",

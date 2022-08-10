@@ -7,6 +7,7 @@
 <script src="{{ asset('assets/vendor/jquery.counterup/jquery.counterup.min.js') }}"></script>	
 <script src="{{ asset('assets/vendor/owl-carousel/owl.carousel.js') }}"></script>
 <script src="{{ asset('assets/vendor/bootstrap-touchspin/js/jquery.bootstrap-touchspin.min.js') }}"></script>
+<script src="{{ asset('assets/js/currency.js')}}"></script>
 <script src="{{ asset('assets/js/alert.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.3.10/dist/sweetalert2.all.min.js"></script>
 <script src="{{ asset('assets/js/custom.js') }}"></script>
