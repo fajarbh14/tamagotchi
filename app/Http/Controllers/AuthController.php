@@ -32,10 +32,10 @@ class AuthController extends Controller
 
         if (Auth::attempt($credential)) {
             Auth::guard('web')->attempt($credential);
-
+            $url = Auth::user()->role == 2 ? '/kasir' : '/home';
             $payload["status_code"] = 200;
             $payload["message"]     = "Successfully Login";
-            $payload["redirect_to"] = url("/home");
+            $payload["redirect_to"] = url($url);
         }
         return response()->json($payload);
     }

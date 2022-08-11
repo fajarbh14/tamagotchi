@@ -41,6 +41,8 @@ class MenuController extends Controller
                 ->make(true);
     }
 
+    
+
     public function create()
     {
         $data = null;
@@ -51,7 +53,7 @@ class MenuController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama'   => "required", 
-            'jenis_menu'   => "required", 
+            'jenis_menu'   => "required",
             'harga'   => "required",
             'stok'   => "required", 
         ]);

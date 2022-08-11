@@ -141,14 +141,14 @@
 
         function ItemsCarousel() {
             jQuery('.item-carousel').owlCarousel({
-                loop: true,
+                loop: false,
                 margin: 10,
                 nav: true,
-                center: true,
-                autoWidth: true,
-                autoplay: true,
+                left: true,
+                autoWidth: false,
+                autoplay: false,
                 dots: false,
-                items: 4,
+                items: 3,
                 navText: ['', ''],
                 breackpoint: []
             })
@@ -160,26 +160,6 @@
             }, 1000);
         });
 
-        function handleTabs() {
-            $('#add-order-content,#place-order').css("display", "none");
-            $('#add-order').on('click', function () {
-                $('#add-order-content').css("display", "block");
-                $('#home-counter').css("display", "none");
-            })
-            $('#place-order-tab').on('click', function () {
-                $('#place-order').css("display", "block");
-                $('#add-order-content').css("display", "none");
-            })
-            $('#place-order-cancel').on('click', function () {
-                $('#place-order').css("display", "none");
-                $('#add-order-content').css("display", "block");
-            })
-            $('#home-counter-tab').on('click', function () {
-                $('#home-counter').css("display", "block");
-                $('#add-order-content').css("display", "none");
-            })
-        }
-        handleTabs();
 
     </script>
 

@@ -36,6 +36,7 @@ Route::post("/user/update/{id}", "UserController@update");
 Route::get("/user/delete/{id}", "UserController@delete");
 
 Route::get("/menu-makanan", "MenuController@index");
+Route::get("/menu-makanan/getMenu", "MenuController@getMenu");
 Route::get("/menu-makanan/api", "MenuController@api");
 Route::get("/menu-makanan/create", "MenuController@create");
 Route::post("/menu-makanan/store", "MenuController@store");
@@ -43,9 +44,15 @@ Route::get("/menu-makanan/edit/{id}", "MenuController@edit");
 Route::post("/menu-makanan/update/{id}", "MenuController@update");
 Route::get("/menu-makanan/delete/{id}", "MenuController@delete");
 
+
 Route::get("/pelanggan/api", "PelangganController@api");
 Route::post("/pelanggan/{id}/update", "PelangganController@update");
 Route::get("/pelanggan/delete/{id}", "PelangganController@destroy");
 Route::resource("/pelanggan", "PelangganController");
+
+Route::get("/kasir","CassierController@index");
+Route::get("/kasir/menu","CassierController@getMenu");
+Route::post("/kasir/order","CassierController@order");
+
 
 Route::get("/home", "HomeController@index");
