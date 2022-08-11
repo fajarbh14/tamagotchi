@@ -43,4 +43,9 @@ Route::get("/menu-makanan/edit/{id}", "MenuController@edit");
 Route::post("/menu-makanan/update/{id}", "MenuController@update");
 Route::get("/menu-makanan/delete/{id}", "MenuController@delete");
 
+Route::get("/pelanggan/api", "PelangganController@api");
+Route::post("/pelanggan/{id}/update", "PelangganController@update");
+Route::get("/pelanggan/delete/{id}", "PelangganController@destroy");
+Route::resource("/pelanggan", "PelangganController");
+
 Route::get("/home", "HomeController@index");
