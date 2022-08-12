@@ -14,7 +14,7 @@ class PelangganController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('role:Admin');
+        $this->middleware('role:Admin,Pelayan');
     }
     /**
      * Display a listing of the resource.
@@ -74,6 +74,23 @@ class PelangganController extends Controller
 
             DB::commit();
             return response()->json(["status_code" => 200, "message" => "Successfully Created Data", "data" => $data]);
+        } catch (Exception $e) {
+            DB::rollback();
+            return response()->json(["status_code" => 500, "message" => $e->getMessage(), "data" => null]);
+        }
+    }
+
+    public function toggle($id){
+        $data = Model::findOrFail($id);
+        $status = "Kosong";
+        if($data->status === "Kosong")
+            $status = 'Dipakai';
+        DB::beginTransaction();
+        try {
+            $data->status = $status;
+            $data->save();
+            DB::commit();
+            return response()->json(["status_code" => 200, "message" => "Successfully Updated Data", "data" => $status]);
         } catch (Exception $e) {
             DB::rollback();
             return response()->json(["status_code" => 500, "message" => $e->getMessage(), "data" => null]);

@@ -32,7 +32,19 @@ class AuthController extends Controller
 
         if (Auth::attempt($credential)) {
             Auth::guard('web')->attempt($credential);
-            $url = Auth::user()->role == 2 ? '/kasir' : '/home';
+            $url = "/home";
+            switch (Auth::user()->role) {
+                case 2:{
+                    $url = '/kasir';
+                    break;
+                }
+                case 4:{
+                    $url = '/pelayan';
+                    break;
+                }
+                default:
+                    break;
+            }
             $payload["status_code"] = 200;
             $payload["message"]     = "Successfully Login";
             $payload["redirect_to"] = url($url);
