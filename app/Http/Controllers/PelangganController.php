@@ -16,11 +16,7 @@ class PelangganController extends Controller
         $this->middleware('auth');
         $this->middleware('role:Admin');
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         return view("admin.pelanggan.index");
@@ -42,11 +38,7 @@ class PelangganController extends Controller
         ->make(true);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function create()
     {
         $data = null;
@@ -54,12 +46,6 @@ class PelangganController extends Controller
         return view("admin.pelanggan.form",compact('data', 'users'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $input = $request->validate([
@@ -71,7 +57,6 @@ class PelangganController extends Controller
         DB::beginTransaction();
         try {
             $data = Model::create($input);
-
             DB::commit();
             return response()->json(["status_code" => 200, "message" => "Successfully Created Data", "data" => $data]);
         } catch (Exception $e) {
@@ -80,23 +65,6 @@ class PelangganController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $data = Model::findOrFail($id);
@@ -104,13 +72,6 @@ class PelangganController extends Controller
         return view("admin.pelanggan.form", compact("data", "users"));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $input = $request->validate([
@@ -132,12 +93,6 @@ class PelangganController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         DB::beginTransaction();

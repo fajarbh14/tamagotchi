@@ -6,7 +6,7 @@
 @section('content')
 <div class="container-fluid">
     <div class="form-head dashboard-head d-md-flex d-block mb-5 align-items-start">
-        <h2 class="dashboard-title me-auto">Menu Makanan
+        <h2 class="dashboard-title me-auto">Pegawai
             <a href="javascript:void(0);" onclick="openForm('{{ url('/pegawai/create') }}', 'create')" 
             class="btn btn-success btn-rounded ms-4 text-white d-inline-block">Tambah</a></h2>
             <li><a href="#" class="btn btn-primary" data-refresh-btn><span> Refresh</span></a></li>
@@ -20,10 +20,8 @@
                         <tr>
                             <th>No</th>
                             <th>Nama</th>
-                            
-                            <th>Alamat</th>
                             <th>No.Telpon</th>
-                            <th class="text-end">Aksi</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -49,7 +47,6 @@
                 columns: [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
                     {data: 'nama', name: 'nama'},
-                    {data: 'alamat', name: 'alamat'},
                     {data: 'telp', name: 'telp'},
                     {data: 'action', name: 'action', orderable: false, searchable: false},
                 ],

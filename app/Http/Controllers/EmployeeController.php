@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\Models\Pegawai as Model;
+use App\Models\Employee as Model;
 
 use Auth;
 use DB;
 use DataTables;
 use Helper;
 
-class PegawaiController extends Controller
+class EmployeeController extends Controller
 {
     public function __construct()
     {
@@ -21,7 +21,7 @@ class PegawaiController extends Controller
 
     public function index()
     {
-        return view("Pegawai.index");
+        return view("admin.employee.index");
     }
 
     public function api(Request $request)
@@ -41,14 +41,13 @@ class PegawaiController extends Controller
     public function create()
     {
         $data = null;
-        return view("pegawai.form",compact('data'));
+        return view("admin.employee.form",compact('data'));
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'nama'   => "required", 
-            
             'alamat'   => "required", 
             'telp'   => "required",
             
@@ -62,7 +61,6 @@ class PegawaiController extends Controller
         try {
             $data = Model::create([
     			'nama'  => $request['nama'],
-                
     			'alamat' => $request['alamat'],
                 'telp' => $request['telp'],
                 
@@ -78,7 +76,7 @@ class PegawaiController extends Controller
     public function edit($id)
     {
         $data   = Model::findOrFail($id);
-        return view("pegawai.form", compact("data"));
+        return view("admin.employee.form", compact("data"));
     }
 
     public function update(Request $request, $id)

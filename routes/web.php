@@ -33,8 +33,8 @@ Route::post("/user/store", "UserController@store");
 Route::get("/user/edit/{id}", "UserController@edit");
 Route::post("/user/update/{id}", "UserController@update");
 Route::get("/user/delete/{id}", "UserController@delete");
+
 Route::get("/menu-makanan", "MenuController@index");
-Route::get("/menu-makanan/getMenu", "MenuController@getMenu");
 Route::get("/menu-makanan/api", "MenuController@api");
 Route::get("/menu-makanan/create", "MenuController@create");
 Route::post("/menu-makanan/store", "MenuController@store");
@@ -53,11 +53,11 @@ Route::post("/kasir/order","CassierController@order");
 
 Route::get("/home", "HomeController@index");
 
-Route::get("/pegawai", "PegawaiController@index");
-Route::get("/pegawai/api", "PegawaiController@api");
-Route::get("/pegawai/create", "PegawaiController@create");
-Route::post("/pegawai/store", "PegawaiController@store");
-Route::get("/pegawai/edit/{id}", "PegawaiController@edit");
-Route::post("/pegawai/update/{id}", "PegawaiController@update");
-Route::get("/pegawai/delete/{id}", "PegawaiController@delete");
+Route::get("/pegawai", "EmployeeController@index");
+Route::get("/pegawai/api", "EmployeeController@api");
+Route::get("/pegawai/create", "EmployeeController@create");
+Route::post("/pegawai/store", "EmployeeController@store");
+Route::get("/pegawai/edit/{id}", "EmployeeController@edit");
+Route::post("/pegawai/update/{id}", "EmployeeController@update");
+Route::get("/pegawai/delete/{id}", "EmployeeController@delete");
 

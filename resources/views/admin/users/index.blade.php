@@ -22,7 +22,7 @@
                             <th>Nama</th>
                             <th>Username</th>
                             <th>Role</th>
-                            <th class="text-end">Aksi</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody></tbody>

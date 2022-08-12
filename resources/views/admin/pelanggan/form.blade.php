@@ -15,8 +15,8 @@
     <div class="mb-3">
         <label class="form-label pt-0">Status</label>
         <select name="status" id="status" class="form-select" required>
-            <option value="kosong" {{($data != null && ($data->status == "kosong")) ? "selected" : ""}}>Kosong</option>
-            <option value="digunakan" {{($data != null && ($data->status == "digunakan")) ? "selected" : ""}}>Digunakan</option>
+            <option value="Kosong" {{($data != null && ($data->status == "Kosong")) ? "selected" : ""}}>Kosong</option>
+            <option value="Dipakai" {{($data != null && ($data->status == "Dipakai")) ? "selected" : ""}}>Dipakai</option>
         </select>
     </div>
     <button class="btn btn-primary" type="submit">Kirim</button>
