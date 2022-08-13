@@ -16,9 +16,6 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('/menu-makanan') }}">Menu Makanan</a>
             </li>
-            <li class="nav-item">
-                <a href="{{ url('/logout') }}" class="nav-link" href="front-login.html">Logout</a>
-            </li>
         </ul>
     </div>	
 </div>

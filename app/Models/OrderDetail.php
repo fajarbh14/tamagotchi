@@ -14,4 +14,8 @@ class OrderDetail extends Model
         'jumlah',
         'subtotal'
     ];
+
+    function menu(){
+        return $this->belongsTo(Menu::class, 'menu_id');
+    }
 }

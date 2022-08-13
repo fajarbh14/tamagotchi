@@ -23,7 +23,7 @@ class CassierController extends Controller
 
     public function index()
     {
-        return view("admin.cassier.index");
+        return view("admin.order.index");
     }
 
     public function getMenu()
@@ -43,6 +43,7 @@ class CassierController extends Controller
     			'no_transaksi'  => Helper::transactionCode(), 
     			'user_id' => Auth::user()->id,
                 'total_bayar' => $request['total_bayar'],
+                'status' => 'Selesai',
     		]);
 
             foreach($request['menu_id'] as $key => $value) {

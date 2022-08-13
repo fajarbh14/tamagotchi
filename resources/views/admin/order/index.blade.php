@@ -8,7 +8,7 @@
 
 @section('content')
 <div class="listcontent-area">
-    @includeIf('admin.cassier.order')
+    @includeIf('admin.order.add')
     <div class="row">
         <div class="col-xl-12">
             <div class="owl-carousel item-carousel">
@@ -44,14 +44,14 @@
     function items() {
         $.ajax({
             type: 'get',
-            url: "{{ url('/kasir/menu') }}",
+            url: "{{ Auth::user()->role == 2 ? url('kasir/menu') : url('order/menu') }}",
             success: function (response) {
                 if (response.status_code == 200) {
                     var itemList = response.data;
                     let itemLi = '';
                     if(itemList.length > 0 ){
                         itemList.forEach(items => $('#item').html(itemLi += `<div class="col-xl-3 col-xxl-4 col-lg-6 col-md-12 col-sm-6">
-                        <a href="javaScript:void(0)" onClick="addItems('{{'${items.id}'}}','{{ '${items.nama}' }}','{{ '${items.harga}' }}','{{ '${items.stok}' }}')">
+                        <a href="javaScript:void(0)" data-target="${items.id}" id="addItems" onClick="addItems('{{'${items.id}'}}','{{ '${items.nama}' }}','{{ '${items.harga}' }}','{{ '${items.stok}' }}')">
                             <div class="card item-card">
                                 <div class="card-body p-0">
                                     <img src="uploads/`+items.image+`" class="img-fluid" alt="">
@@ -83,6 +83,7 @@
 
     var x = 1;
     function addItems(id_menu,menu,price,stok){
+
         var id_menu = id_menu;
         var menu = menu;
         var price = price;
@@ -90,11 +91,12 @@
         var subTotal = price; 
         var maxField = 25;
         var wrapper = $('#wrapper');
+    
 
         if(x < maxField){ 
-            var fieldHTML = `<tr id="rowInput${x}">
+            var fieldHTML = `<tr data-target="${id_menu}" id="rowInput${x}">
             <td>${menu}
-                <input type="hidden" name="menu_id[]" value="${id_menu}">
+                <input type="hidden" class="menu_id" name="menu_id[]" value="${id_menu}">
             </td>
             <td>${price}</td>
             <td>
@@ -109,10 +111,9 @@
                 <button class="btn btn-danger btn-sm text-white remove_button" id="${x}" type="button">Hapus</button>
             </td>
             </tr>`;
-            x++; //Increment field counter
-            $(wrapper).append(fieldHTML); //Add field html
+            x++;
+            $(wrapper).append(fieldHTML);
         }
-
         var grandTotal = 0;
         $('.subtotal').each(function() {
             grandTotal += parseInt($(this).val());
@@ -127,8 +128,8 @@
                 $(this).val(1)
             }
         });
-
     }
+
     $(wrapper).on('click', '.remove_button', function(e){
         e.preventDefault();
         var button_id = $(this).attr("id");   

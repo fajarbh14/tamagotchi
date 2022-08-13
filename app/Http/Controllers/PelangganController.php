@@ -14,7 +14,7 @@ class PelangganController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('role:Admin');
+        $this->middleware('role:Admin,Pelayan');
     }
 
     public function index()
@@ -64,6 +64,41 @@ class PelangganController extends Controller
             return response()->json(["status_code" => 500, "message" => $e->getMessage(), "data" => null]);
         }
     }
+
+    public function toggle($id){
+        $data = Model::findOrFail($id);
+        $status = "Kosong";
+        if($data->status === "Kosong")
+            $status = 'Dipakai';
+        DB::beginTransaction();
+        try {
+            $data->status = $status;
+            $data->save();
+            DB::commit();
+            return response()->json(["status_code" => 200, "message" => "Successfully Updated Data", "data" => $status]);
+        } catch (Exception $e) {
+            DB::rollback();
+            return response()->json(["status_code" => 500, "message" => $e->getMessage(), "data" => null]);
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
 
     public function edit($id)
     {

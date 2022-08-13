@@ -3,12 +3,11 @@
     #add-order-content {
         display: block !important;
     }
-
 </style>
 @endpush
 <aside class="cart-area  dz-scroll" id="cart_area">
     <div class="h-100" id="add-order-content">
-        <form id="order" onsubmit="return false;" data-target="{{ Auth::user()->role == 2 ? url('kasir/order') : url('pelanggan/order') }}">
+        <form id="order" onsubmit="return false;" data-target="{{ Auth::user()->role == 2 ? url('kasir/order') : url('order/store') }}">
             <div class="card rounded-0">
                 <div class="card-body p-0">
                     <div class="table-responsive">

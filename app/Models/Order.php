@@ -12,6 +12,12 @@ class Order extends Model
         'no_transaksi',
         'user_id',
         'pelanggan_id',
-        'total_bayar'
+        'total_bayar',
+        'status'
     ];
+
+    function customer()
+    {
+        return $this->belongsTo( Pelanggan::class, 'pelanggan_id');
+    }
 }

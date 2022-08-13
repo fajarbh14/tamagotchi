@@ -42,10 +42,13 @@ Route::get("/menu-makanan/edit/{id}", "MenuController@edit");
 Route::post("/menu-makanan/update/{id}", "MenuController@update");
 Route::get("/menu-makanan/delete/{id}", "MenuController@delete");
 
+Route::get("/pelanggan/{id}/toggle", "pelangganController@toggle");
 Route::get("/pelanggan/api", "PelangganController@api");
 Route::post("/pelanggan/{id}/update", "PelangganController@update");
 Route::get("/pelanggan/delete/{id}", "PelangganController@destroy");
 Route::resource("/pelanggan", "PelangganController");
+
+Route::resource("/pelayan", "PelayanController");
 
 Route::get("/kasir","CassierController@index");
 Route::get("/kasir/menu","CassierController@getMenu");
@@ -61,3 +64,11 @@ Route::get("/pegawai/edit/{id}", "EmployeeController@edit");
 Route::post("/pegawai/update/{id}", "EmployeeController@update");
 Route::get("/pegawai/delete/{id}", "EmployeeController@delete");
 
+Route::get("/order","OrderController@index");
+Route::get("/order/menu","OrderController@getMenu");
+Route::post("/order/store","OrderController@store");
+
+Route::get("/transaksi","TransactionController@index");
+Route::get("/transaksi/api","TransactionController@api");
+Route::get("/transaksi/pembayaran/{id}","TransactionController@payment");
+Route::post("/transaksi/pembayaran/{id}","TransactionController@update");
