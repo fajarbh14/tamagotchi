@@ -27,9 +27,9 @@ class KokiController extends Controller
 
     public function toggle($id){
         $data = Model::findOrFail($id);
-        $status = "Menunggu";
-        if($data->status === "Menunggu")
-            $status = 'Selesai';
+        $status = "Diproses";
+        if($data->status === "Diproses")
+            $status = "Selesai Dibuat";
         DB::beginTransaction();
         try {
             $data->status = $status;

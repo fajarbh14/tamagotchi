@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Employee as Model;
-
+use App\Models\User;
 use Auth;
 use DB;
 use DataTables;
@@ -41,7 +41,8 @@ class EmployeeController extends Controller
     public function create()
     {
         $data = null;
-        return view("admin.employee.form",compact('data'));
+        $users = User::where("role",'!=','1')->Where("role",'!=','5')->get();
+        return view("admin.employee.form",compact('data','users'));
     }
 
     public function store(Request $request)
@@ -60,10 +61,10 @@ class EmployeeController extends Controller
         DB::beginTransaction();
         try {
             $data = Model::create([
+                'user_id' => $request['user_id'],
     			'nama'  => $request['nama'],
     			'alamat' => $request['alamat'],
                 'telp' => $request['telp'],
-                
     		]);
     		DB::commit();
             return response()->json(["status_code" => 200, "message" => "Berhasil Menambahkan Data", "data" => $data]);
@@ -76,7 +77,8 @@ class EmployeeController extends Controller
     public function edit($id)
     {
         $data   = Model::findOrFail($id);
-        return view("admin.employee.form", compact("data"));
+        $users = User::where("role",'!=','1')->where("role",'!=','5')->get();
+        return view("admin.employee.form", compact("data","users"));
     }
 
     public function update(Request $request, $id)
@@ -95,6 +97,7 @@ class EmployeeController extends Controller
         try {
             $data = Model::findOrFail($id);
             $data ->update([
+                'user_id' => $request['user_id'],
     			'nama'  => $request['nama'],
     			'alamat' => $request['alamat'],
                 'telp' => $request['telp'],

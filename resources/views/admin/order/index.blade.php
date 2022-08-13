@@ -11,28 +11,6 @@
     @includeIf('admin.order.add')
     <div class="row">
         <div class="col-xl-12">
-            <div class="owl-carousel item-carousel">
-                <div class="items">
-                    <div class="item-box">
-                        <img src="{{ asset('assets/images/food-icon/1.png')}}" alt="">
-                        <h5 class="title mb-0">Minuman</h5>
-                    </div>
-                </div>
-                <div class="items">
-                    <div class="item-box active">
-                        <img src="{{ asset('assets/images/food-icon/2.png')}}" alt="">
-                        <h5 class="title mb-0">Makanan</h5>
-                    </div>
-                </div>
-                <div class="items">
-                    <div class="item-box">
-                        <img src="{{ asset('assets/images/food-icon/3.png')}}" alt="">
-                        <h5 class="title mb-0">Dessert</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-12">
             <div class="row" id="item">
                 
             </div>

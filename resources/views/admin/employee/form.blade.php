@@ -1,6 +1,14 @@
 <form class="theme-form" id="{{$data == null ? "create-form" : "edit-form"}}" data-target="{{$data == null ? "" : url('pegawai/update/'.$data->id)}}" onsubmit="return false;">
     {{ csrf_field() }}
     <div class="mb-3">
+        <label class="form-label pt-0">Pilih User</label>
+        <select name="user_id" id="user_id" class="form-select" required>
+            @foreach ($users as $user)
+                <option value="{{$user->id}}" {{($data != null && ($user->id == $data->user_id)) ? "selected" : ""}}>{{$user->nama}}</option>
+            @endforeach
+        </select>
+    </div>
+    <div class="mb-3">
         <label class="form-label pt-0">Nama Pegawai</label>
         <input class="form-control" id="nama" name="nama" value="{{ $data == null ? "" : $data->nama}}" type="text" required />
     </div>

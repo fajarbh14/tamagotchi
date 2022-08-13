@@ -9,7 +9,7 @@
 @section('content')
     <div class="content-wrapper pt-0">
         <!-- row -->
-        <div class="container-fluid bg-gray">
+        <div class="container-fluid">
             <div class="row order-row" id="masonry">
                 @foreach ($data as $datum)
                     <div

@@ -26,7 +26,7 @@ class UserController extends Controller
 
     public function api(Request $request)
     {
-        return DataTables::of(Model::where('role','!=',5)->orderBy("role", "DESC"))
+        return DataTables::of(Model::orderBy("role", "DESC"))
                 ->addIndexColumn()
                 ->addColumn('role', function($data) {
                     return Helper::roleName($data->role);

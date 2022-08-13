@@ -22,6 +22,7 @@
             <option value="2" {{$data != null ? $data->role == 2 ? "selected" : "" : ""}}>Kasir</option>
             <option value="3" {{$data != null ? $data->role == 3 ? "selected" : "" : ""}}>Koki</option>
             <option value="4" {{$data != null ? $data->role == 4 ? "selected" : "" : ""}}>Pelayan</option>            
+            <option value="5" {{$data != null ? $data->role == 5 ? "selected" : "" : ""}}>Pelanggan</option>            
         </select>
     </div>
     <button class="btn btn-primary" type="submit">Kirim</button>

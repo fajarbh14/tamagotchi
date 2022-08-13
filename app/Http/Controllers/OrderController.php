@@ -34,6 +34,7 @@ class OrderController extends Controller
     }
 
 
+
     public function store(Request $request)
     {
 
@@ -45,7 +46,7 @@ class OrderController extends Controller
     			'user_id' => Auth::user()->id,
                 'pelanggan_id' => $pelanggan->id,
                 'total_bayar' => $request['total_bayar'],
-                'status' => 'Menunggu Konfirmasi'
+                'status' => 'Diproses'
     		]);
 
             foreach($request['menu_id'] as $key => $value) {
