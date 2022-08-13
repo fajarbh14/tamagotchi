@@ -15,6 +15,9 @@ class OrderDetail extends Model
         'subtotal'
     ];
 
+    function order(){
+        return $this->belongsTo(Order::class, 'pesanan_id');
+    }
     function menu(){
         return $this->belongsTo(Menu::class, 'menu_id');
     }

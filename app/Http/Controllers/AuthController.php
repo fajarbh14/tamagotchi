@@ -38,6 +38,10 @@ class AuthController extends Controller
                     $url = '/kasir';
                     break;
                 }
+                case 3:{
+                    $url = '/koki';
+                    break;
+                }
                 case 4:{
                     $url = '/pelayan';
                     break;

@@ -67,6 +67,9 @@ Route::get("/pegawai/delete/{id}", "EmployeeController@delete");
 Route::get("/order","OrderController@index");
 Route::get("/order/menu","OrderController@getMenu");
 Route::post("/order/store","OrderController@store");
+Route::get("/order/{id}/toggle", "KokiController@toggle");
+
+Route::get("/koki", "KokiController@index");
 
 Route::get("/transaksi","TransactionController@index");
 Route::get("/transaksi/api","TransactionController@api");
